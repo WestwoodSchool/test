@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>{{ page_title }}</title>
+    
+    <!-- Performance Optimization -->
+    <link rel="preload" href="{{ 'theme.css' | asset_url }}" as="style">
+    <link rel="preload" href="{{ 'theme.js' | asset_url }}" as="script">
+    
+    <!-- Luxe Aesthetic Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    {{ content_for_header }}
+    
+    <!-- Critical CSS -->
+    <style>
+        :root {
+            --primary-black: #000000;
+            --primary-white: #FFFFFF;
+            --accent-gray: #333333;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--primary-black);
+            color: var(--primary-white);
+            line-height: 1.6;
+        }
+    </style>
+    
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+</head>
+<body class="luxury-theme">
+    <!-- Luxury Navigation -->
+    <nav class="luxury-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="{{ 'logo.svg' | asset_url }}" alt="{{ shop.name }}">
+            </div>
+            <div class="nav-links">
+                {% for link in linklists.main-menu.links %}
+                    <a href="{{ link.url }}" class="nav-link">{{ link.title }}</a>
+                {% endfor %}
+            </div>
+            <div class="nav-actions">
+                <button class="cart-toggle">
+                    <span class="cart-count">{{ cart.item_count }}</span>
+                    <i class="icon-cart"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="main-content">
+        {{ content_for_layout }}
+    </main>
+
+    <!-- Next Drop Countdown Section -->
+    <section id="next-drop-countdown" class="drop-countdown">
+        <div class="countdown-container">
+            <h2>Next Exclusive Drop</h2>
+            <div id="countdown-timer" class="timer">
+                <div class="timer-segment">
+                    <span class="time days"></span>
+                    <span class="label">Days</span>
+                </div>
+                <div class="timer-segment">
+                    <span class="time hours"></span>
+                    <span class="label">Hours</span>
+                </div>
+                <div class="timer-segment">
+                    <span class="time minutes"></span>
+                    <span class="label">Minutes</span>
+                </div>
+                <div class="timer-segment">
+                    <span class="time seconds"></span>
+                    <span class="label">Seconds</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Smart Support Assistant (Fred) -->
+    <div id="fred-assistant" class="chat-assistant">
+        <div class="chat-container">
+            <div class="chat-header">
+                <h3>Fred - Your Style Assistant</h3>
+            </div>
+            <div class="chat-messages" id="chat-log"></div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Ask Fred anything...">
+                <button class="send-message">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Social Integration Sidebar -->
+    <div class="social-sidebar">
+        <a href="{{ shop.facebook }}" class="social-link facebook">Facebook</a>
+        <a href="{{ shop.instagram }}" class="social-link instagram">Instagram</a>
+        <a href="#" class="newsletter-signup">Drop Notifications</a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="luxury-footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                {% for link in linklists.footer.links %}
+                    <a href="{{ link.url }}">{{ link.title }}</a>
+                {% endfor %}
+            </div>
+            <div class="footer-column">
+                <h4>Newsletter</h4>
+                {% form 'customer' %}
+                    <input type="email" name="contact[email]" placeholder="Enter your email">
+                    <button type="submit">Subscribe</button>
+                {% endform %}
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- Performance Optimization Scripts -->
+    <script src="https://cdn.shopify.com/shopifycloud/shopify-xhr-tracking/tracker.js"></script>
+    {{ 'theme.js' | asset_url | script_tag }}
+    {{ 'lazysizes.min.js' | asset_url | script_tag }}
+</body>
+</html>
